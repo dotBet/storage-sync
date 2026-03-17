@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "storage-sync"
+version = "1.0.0"
+description = "Sync files between local filesystem, Azure Blob Storage, and ADLS Gen2"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Argano"}
+]
+keywords = [
+    "azure",
+    "storage",
+    "sync",
+    "blob",
+    "adls",
+    "datalake",
+    "fabric",
+    "lakehouse"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Archiving :: Backup",
+    "Topic :: System :: Filesystems",
+]
+
+dependencies = [
+    "azure-storage-file-datalake>=12.14.0",
+    "azure-storage-blob>=12.19.0",
+    "azure-identity>=1.15.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+storage-sync = "storage_sync.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/dotBet/storage-sync"
+Documentation = "https://github.com/dotBet/storage-sync#readme"
+Repository = "https://github.com/dotBet/storage-sync"
+Issues = "https://github.com/dotBet/storage-sync/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["storage_sync*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --cov=storage_sync --cov-report=term-missing"
