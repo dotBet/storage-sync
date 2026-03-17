@@ -191,7 +191,3 @@ black storage_sync/
 # Lint
 ruff check storage_sync/
 ```
-
-## License
-
-MIT License
